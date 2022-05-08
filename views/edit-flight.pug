@@ -1,0 +1,23 @@
+extend layout
+
+block main
+  section#Infos
+    header
+      h2 Editing '#{Flight.title}'
+      ul
+        li
+          form.delete(action=`/flights/${Flight.id}/destroy` method="post")
+            button.delete(type="submit") Delete Flight
+
+  form(action=`/flights/${Flight.id}/edit` method="post")
+    dl
+      dt
+        label(for="FlightTitle") Enter the new title for the flight:
+      dd
+        input(type="text"
+              name="FlightTitle"
+              placeholder="List Title"
+              value=FlightTitle || Flight.title)
+    fieldset.actions
+      input(type="submit" value="Save")
+      a(href=`/flights/${Flight.id}`) Cancel

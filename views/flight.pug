@@ -1,0 +1,43 @@
+extends layout 
+
+block main 
+  section#Infos(class=Flight.isDone() ? "done" : "")
+    header 
+      h2=Flight.title 
+      ul
+        if Flight.size() > 0 && !Flight.isDone()
+          li 
+            form.complete_all(action=`/flights/${Flight.id}/complete_all` method="post")
+              button.check(type="submit") Mark Flight as Complete
+        li 
+          form(action=`/flights/${Flight.id}/edit` method="get")
+            button.edit(type="submit") Edit Flight 
+    
+    ul 
+      h3=Flight.info
+      each Info in Infos
+        //- li(class=Info.isDone() ? "done" : "")
+        //-   form.check(action=`/flights/${Flight.id}/Info/${Info.id}/toggle` method="post")
+        //-     input(type="hidden" name="done" value=!Info.isDone())
+        //-     button Done 
+          
+
+        h3=Info.title 
+          form.delete(action=`/flights/${Flight.id}/Info/${Info.id}/destroy` method="post")
+            button Delete 
+      //- each Info in Infos 
+      //-   h3=Info.title
+
+    
+    form(action=`/flights/${Flight.id}/Info` method="post")
+      dl 
+        dt 
+          label(for="InfoTitle") Enter a new Info: 
+        dd 
+          input(type="text" name ="InfoTitle" placeholder="Info" value=InfoTitle)
+      fieldset.actions 
+        button Add 
+
+block headerLinks 
+  .actions 
+    a.list(href="/flights") All lists

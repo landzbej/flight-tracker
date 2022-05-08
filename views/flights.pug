@@ -1,0 +1,16 @@
+extends layout 
+
+block main 
+  if Flights === undefined || Flights.length === 0
+    p#no_list You dont have any flights. Why not create one?
+  else 
+    ul#lists 
+      each Flight in Flights 
+        li(class=Flight.isDone() ? "done" : "")
+          a(href=`/flights/${Flight.id}`)
+            h2= Flight.title
+            p #{Flight.allDone().size()} / #{Flight.size()}
+
+block headerLinks 
+  .actions 
+    a.add(href="/flights/new") New Flight
